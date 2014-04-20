@@ -14,6 +14,41 @@ class Router
     @env = env
   end
 
+  def params
+    ActiveSupport::HashWithIndifferentAccess.new(path_info.except(:action, :controller).merge(post_data))
+  end
+
+
+private
+
+  attr_reader :env
+
+  def controller
+    "#{path_info[:controller].camelize}Controller".constantize
+  end
+
+  def path_info
+    routes.recognize_path(env['PATH_INFO'], {:method => method.upcase})
+  end
+
+  def routes
+    Router.routes
+  end
+
+  def method
+    env['REQUEST_METHOD'].downcase
+  end
+
+  def action
+    path_info[:action].camelize
+  end
+
+  def post_data
+    env['POST_DATA'] || {}
+  end
+
+
+
 end
 
 module GamesController
