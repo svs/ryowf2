@@ -79,6 +79,9 @@ end
 module GamesController
 
   class Index < Proof::ControllerAction
+    def get
+      [200,{},[].to_json]
+    end
   end
 
   class Update < Proof::ControllerAction
