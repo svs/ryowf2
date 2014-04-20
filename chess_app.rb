@@ -17,4 +17,14 @@ class Router
 end
 
 module GamesController
+
+  class Index
+  end
+
+  class Update
+  end
+
+  class Create
+  end
+
 end
