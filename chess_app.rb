@@ -33,6 +33,10 @@ class Router
     ActiveSupport::HashWithIndifferentAccess.new(path_info.except(:action, :controller).merge(post_data))
   end
 
+  def call
+    handler = controller.module_eval(action)
+    handler.new(self).send(method)
+  end
 
 private
 
