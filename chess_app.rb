@@ -12,3 +12,6 @@ class Router
 
 
 end
+
+module GamesController
+end
