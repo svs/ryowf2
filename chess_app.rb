@@ -1,4 +1,6 @@
 require 'action_dispatch'
+require 'redis'
+REDIS = Redis.new
 
 class Router
 
