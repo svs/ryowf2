@@ -50,11 +50,11 @@ describe GamesController do
     @r = Rack::MockRequest.new(ChessApp.new).put('/games/1', {params: {move: "E4"}})
     @r.body.should == "ok"
     @r = Rack::MockRequest.new(ChessApp.new).get('/games/1')
-    ap JSON.load(@r.body) #.should == ["1"]
+    JSON.load(@r.body).should == ["E4"]
     @r = Rack::MockRequest.new(ChessApp.new).put('/games/1', {params: {move: "E5"}})
     @r.body.should == "ok"
     @r = Rack::MockRequest.new(ChessApp.new).get('/games/1')
-    ap JSON.load(@r.body) #.should == ["1"]
+    JSON.load(@r.body).should == ["E4", "E5"]
 
   end
 

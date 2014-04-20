@@ -4,7 +4,6 @@ require './game.rb'
 
 class ChessApp
 
-
   def call(env)
     env.update('POST_DATA' => Rack::Utils.parse_nested_query(env['rack.input'].read))
     env['rack.input'].rewind
@@ -115,5 +114,18 @@ module GamesController
       end
     end
   end
+
+
+  class Show < Proof::ControllerAction
+    def get
+      game = Game.find(params[:id])
+      if game
+        [200,{},game.to_json]
+      else
+        [404,{},"not found"]
+      end
+    end
+  end
+
 
 end
