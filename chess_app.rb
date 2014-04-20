@@ -10,6 +10,9 @@ class Router
     end
   end
 
+  def initialize(env)
+    @env = env
+  end
 
 end
 
