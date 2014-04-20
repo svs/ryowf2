@@ -1,7 +1,6 @@
 require 'action_dispatch'
 require 'redis'
 require './game.rb'
-REDIS = Redis.new
 
 class ChessApp
 
@@ -81,15 +80,22 @@ module GamesController
 
   class Index < Proof::ControllerAction
     def get
-      [200,{},[].to_json]
+      [200,{},Game.all.to_json]
     end
   end
 
   class Update < Proof::ControllerAction
-
   end
 
   class Create < Proof::ControllerAction
+    def post
+      id = Game.create
+      if id
+        [200,{}, id.to_s]
+      else
+        [422,{}, "oops!"]
+      end
+    end
   end
 
 end

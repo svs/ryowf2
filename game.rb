@@ -1,13 +1,13 @@
+REDIS = Redis.new
 class Game
   def self.all
     REDIS.lrange("CHESS:ids", 0, -1)
   end
 
   def self.create
-    (REDIS.lrange("CHESS:ids", -1, -1)[-1].to_i + 1).tap{|id|
-      REDIS.rpush("CHESS:ids", id)
-    }
-
+    id = REDIS.lrange("CHESS:ids", -1, -1)[-1].to_i + 1
+    REDIS.rpush("CHESS:ids", id)
+    id
   end
 
   def self.find(id)
