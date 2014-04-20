@@ -2,6 +2,22 @@ require 'rspec'
 require_relative '../chess_app.rb'
 require 'json'
 
+RSpec::Matchers.define :route_to do |expected|
+  match do |actual|
+    actual.send(:controller).to_s == expected.to_s.split("::")[0] &&
+    actual.send(:action).to_s == expected.to_s.split("::")[1] &&
+      (@params ? (actual.send(:params) == @params) : true)
+
+  end
+
+  chain :with do |params|
+    @params = params
+  end
+
+end
+
+
+
 describe Router do
 
   describe "the routes" do
