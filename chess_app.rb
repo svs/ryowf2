@@ -2,6 +2,19 @@ require 'action_dispatch'
 require 'redis'
 REDIS = Redis.new
 
+class ChessApp
+
+
+  def call(env)
+    env.update('POST_DATA' => Rack::Utils.parse_nested_query(env['rack.input'].read))
+    env['rack.input'].rewind
+    Router.new(env).call
+  end
+
+end
+
+
+
 class Router
 
   def self.routes
