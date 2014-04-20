@@ -1,5 +1,6 @@
 require 'action_dispatch'
 require 'redis'
+require './game.rb'
 REDIS = Redis.new
 
 class ChessApp
@@ -85,6 +86,7 @@ module GamesController
   end
 
   class Update < Proof::ControllerAction
+
   end
 
   class Create < Proof::ControllerAction
