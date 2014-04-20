@@ -65,20 +65,26 @@ private
   def post_data
     env['POST_DATA'] || {}
   end
-
-
-
 end
+
+module Proof
+  class ControllerAction
+    def initialize(data)
+      @data = data
+    end
+  end
+end
+
 
 module GamesController
 
-  class Index
+  class Index < Proof::ControllerAction
   end
 
-  class Update
+  class Update < Proof::ControllerAction
   end
 
-  class Create
+  class Create < Proof::ControllerAction
   end
 
 end
