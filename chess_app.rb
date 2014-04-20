@@ -72,6 +72,15 @@ module Proof
     def initialize(data)
       @data = data
     end
+
+    def params
+      data.params
+    end
+
+    private
+
+    attr_reader :data
+
   end
 end
 
@@ -85,6 +94,15 @@ module GamesController
   end
 
   class Update < Proof::ControllerAction
+    def put
+      id = params[:id]
+      game = Game.find(id)
+      if game.add_move(params[:move])
+        [200,{},"ok"]
+      else
+        [422,{}, game.last_error]
+      end
+    end
   end
 
   class Create < Proof::ControllerAction
